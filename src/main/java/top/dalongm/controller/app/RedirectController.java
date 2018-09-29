@@ -49,7 +49,8 @@ public class RedirectController {
                 return "/app/error";
             }
 
-            if(Time.getDateDiff(urlDto.getCreateTime(),new Date())>urlDto.getValidTime()){
+            Double dayDiff = Time.getDateDiff(urlDto.getCreateTime(),new Date());
+            if(dayDiff>urlDto.getValidTime()){
                 e.setMessage("短链接已过期!");
                 model.addAttribute("error", e);
                 return "/app/error";
@@ -57,6 +58,7 @@ public class RedirectController {
 
             urlService.incVisitedById(urlDto.getId());
             urlDto.setValidTimes(urlDto.getValidTimes()-urlDto.getVisited());
+            urlDto.setValidTime(urlDto.getValidTime()-dayDiff);
             model.addAttribute("url", urlDto);
             return "/app/goto";
 
@@ -81,7 +83,9 @@ public class RedirectController {
                     return "/app/error";
                 }
 
-                if(Time.getDateDiff(temp.getCreateTime(),new Date())>temp.getValidTime()){
+
+                Double dayDiff = Time.getDateDiff(temp.getCreateTime(),new Date());
+                if(dayDiff>temp.getValidTime()){
                     e.setMessage("短链接已过期!");
                     model.addAttribute("error", e);
                     return "/app/error";
@@ -89,6 +93,7 @@ public class RedirectController {
 
                 urlService.incVisitedById(temp.getId());
                 temp.setValidTimes(temp.getValidTimes()-temp.getVisited());
+                temp.setValidTime(temp.getValidTime()-dayDiff);
                 model.addAttribute("url", temp);
                 return "/app/goto";
             }
