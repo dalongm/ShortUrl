@@ -7,15 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de70db44-9b5a-4146-b121-5e7cb96fa662" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images/add.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/tran.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/dalongm/dto/APIURLDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/dalongm/utils/ErrorType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/dalongm/controller/api/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/dalongm/controller/api/ApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/dalongm/controller/app/RedirectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/dalongm/controller/app/RedirectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/app/enterpass.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/app/enterpass.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -92,7 +84,7 @@
         <counts>
           <entry key="java" value="6689" />
           <entry key="jsp" value="1817" />
-          <entry key="md" value="876" />
+          <entry key="md" value="1019" />
           <entry key="properties" value="6" />
           <entry key="xml" value="1232" />
         </counts>
@@ -102,7 +94,7 @@
           <entry key="JAVA" value="6689" />
           <entry key="JSON" value="6" />
           <entry key="JSP" value="1817" />
-          <entry key="Markdown" value="870" />
+          <entry key="Markdown" value="1013" />
           <entry key="Properties" value="6" />
           <entry key="SQL" value="63" />
           <entry key="XML" value="1169" />
@@ -199,8 +191,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="225">
-                <caret line="58" column="36" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
+              <first_editor relative-caret-position="439">
+                <caret line="78" column="7" lean-forward="true" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="7" />
               </first_editor>
               <second_editor />
             </state>
@@ -600,7 +592,7 @@
       <option name="presentableId" value="Default" />
       <updated>1538116521698</updated>
       <workItem from="1538116524905" duration="18133000" />
-      <workItem from="1538142785205" duration="34772000" />
+      <workItem from="1538142785205" duration="35308000" />
     </task>
     <servers />
   </component>
@@ -637,7 +629,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52905000" />
+    <option name="totallyTimeSpent" value="53441000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -656,7 +648,7 @@
       <window_info id="UI Designer" order="1" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="Web" order="3" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.25417203" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.1521181" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
@@ -1096,8 +1088,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="225">
-            <caret line="58" column="36" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
+          <first_editor relative-caret-position="439">
+            <caret line="78" column="7" lean-forward="true" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="7" />
           </first_editor>
           <second_editor />
         </state>
