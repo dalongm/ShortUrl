@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import top.dalongm.bean.Error;
 import top.dalongm.dto.URLDto;
 import top.dalongm.service.URLService;
+import top.dalongm.utils.ErrorType;
 import top.dalongm.utils.Time;
 
 import java.util.Date;
@@ -44,15 +45,13 @@ public class RedirectController {
             }
 
             if(urlDto.getValidTimes()<=urlDto.getVisited()){
-                e.setMessage("短链接访问次数达上限!");
-                model.addAttribute("error", e);
+                model.addAttribute("error", ErrorType.TIMES_INVALID);
                 return "/app/error";
             }
 
             Double dayDiff = Time.getDateDiff(urlDto.getCreateTime(),new Date());
             if(dayDiff>urlDto.getValidTime()){
-                e.setMessage("短链接已过期!");
-                model.addAttribute("error", e);
+                model.addAttribute("error", ErrorType.TIME_INVALID);
                 return "/app/error";
             }
 
@@ -65,8 +64,7 @@ public class RedirectController {
 //            return "redirect:"+urlDto.getUrl();
         }
 
-        e.setMessage("短链接失效！");
-        model.addAttribute("error", e);
+        model.addAttribute("error", ErrorType.SHORT_URL_INVALID);
         return "/app/error";
     }
 
@@ -78,16 +76,14 @@ public class RedirectController {
             URLDto temp = urlService.getBySUrl(sUrl);
             if (temp != null && urlDto.getVisitPass().equals(temp.getVisitPass())) {
                 if(temp.getValidTimes()<=temp.getVisited()){
-                    e.setMessage("短链接访问次数达上限!");
-                    model.addAttribute("error", e);
+                    model.addAttribute("error", ErrorType.TIMES_INVALID);
                     return "/app/error";
                 }
 
 
                 Double dayDiff = Time.getDateDiff(temp.getCreateTime(),new Date());
                 if(dayDiff>temp.getValidTime()){
-                    e.setMessage("短链接已过期!");
-                    model.addAttribute("error", e);
+                    model.addAttribute("error", ErrorType.TIME_INVALID);
                     return "/app/error";
                 }
 
@@ -98,9 +94,11 @@ public class RedirectController {
                 return "/app/goto";
             }
         }
-
-        e.setMessage("密码错误或短链接失效!");
-        model.addAttribute("error", e);
+        if(sUrl==null){
+            model.addAttribute("error", ErrorType.SHORT_URL_INVALID);
+        }else{
+            model.addAttribute("error", ErrorType.PASS_ERROR);
+        }
         return "/app/error";
     }
 }

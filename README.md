@@ -13,4 +13,62 @@
 >db.password=password
 
 ## 部署链接
-www.dalongm.top
+http://s.dalongm.top
+
+## API
+目前含有两个api分别是
+* 创建短链接
+    * POST请求路径   
+    http://s.dalongm.top/api/add
+    * 请求数据
+    ```json
+      {
+          "url": "www.baidu.com",
+          "sUrl": "qsMeK",
+          "validTime": 365,
+          "validTimes": 100000,
+          "visitPass": 123456
+      }
+    ```
+    * 在请求中
+        * url为原始链接，小于255个字符，**必选**
+        * sUrl为短链接，5到10位的数字与字母组合，可选，默认随机
+        * validTime为有效时长，单位（天），可选，默认365天
+        * validTimes为有效次数，单位（次），可选，默认10^5次
+        * visitPass为访问密码，4到10位的数字与字母组合，可选，默认无
+    * 返回数据
+    ```json
+      {
+          "url": "www.baidu.com",
+          "sUrl": "qsMeK",
+          "visited": 0,
+          "createTime": 1538224413654,
+          "validTime": 365,
+          "validTimes": 100000,
+          "visitPass": 123456,
+          "error": "SUCCESS",
+          "basePath": "http://m.dalongm.top/"
+      }
+    ```
+    * 返回数据中
+        * url为原始链接
+        * sUrl为短链接，5到10位的数字与字母组合，可选，默认随机
+        * validTime为剩余有效时长，单位（天），浮点型
+        * validTimes为剩余有效次数，单位（次），整型
+        * visitPass为访问密码，无密码时不返回该字段
+        * error为错误消息，返回"SUCCESS"表示成功
+
+* 转换链接
+    * POST请求路径   
+    http://s.dalongm.top/api/tran
+    * 请求数据
+    ```json
+      {
+          "sUrl": "qsMeK",
+          "visitPass": 123456
+      }
+    ```
+    * 在请求中
+        * sUrl为短链接，5到10位的数字与字母组合，必选，默认随机
+        * visitPass为访问密码，4到10位的数字与字母组合，若无密码则无需请求该字段
+    * 返回数据，见创建短链接的返回数据

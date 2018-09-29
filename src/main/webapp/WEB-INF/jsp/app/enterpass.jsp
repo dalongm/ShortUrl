@@ -46,7 +46,7 @@
         </div>
         <div class="uk-margin">
             <input class="uk-button uk-button-primary" type="button" value="访问" onclick="goto()"/>
-            <input class="uk-button uk-button-default" type="reset" value="关闭" onclick="closePage()"/>
+            <input class="uk-button uk-button-default" type="button" value="关闭" onclick="closeCurrentPage()"/>
         </div>
     </fieldset>
 </form>
@@ -69,6 +69,18 @@
     function goto(){
         if(checkShort("#visitPass",4)){
             $("#urlForm").submit();
+        }
+    }
+
+    function closeCurrentPage() {
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Firefox") !== -1 || userAgent.indexOf("Chrome") !== -1) {
+            window.location.href = "about:blank";
+            window.close();
+        } else {
+            window.opener = null;
+            window.open("", "_self");
+            window.close();
         }
     }
 </script>
