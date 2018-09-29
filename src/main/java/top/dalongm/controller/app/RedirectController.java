@@ -24,6 +24,11 @@ public class RedirectController {
     public String createShortUrl(Model model, URLDto urlDto) {
 
         if (urlDto.getUrl() != null) {
+            String surl = urlDto.getsUrl();
+            if(surl!=null&&!surl.equals("")&&urlService.getBySUrl(surl)!=null){
+                model.addAttribute("error", ErrorType.ADD_FAIL_SHORT_REPEAT);
+                return "/app/error";
+            }
             urlDto = urlService.add(urlDto);
             if (urlDto != null) {
                 model.addAttribute("url", urlDto);
