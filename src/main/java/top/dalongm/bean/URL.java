@@ -17,7 +17,7 @@ public class URL {
     private Long visited;
     private Date createTime;
     private Date lastVisitTime;
-    private Long validTime;
+    private Double validTime;
     private Long validTimes;
     private String visitPass;
 
@@ -70,11 +70,11 @@ public class URL {
         this.visited = visited;
     }
 
-    public Long getValidTime() {
+    public Double getValidTime() {
         return validTime;
     }
 
-    public void setValidTime(Long validTime) {
+    public void setValidTime(Double validTime) {
         this.validTime = validTime;
     }
 

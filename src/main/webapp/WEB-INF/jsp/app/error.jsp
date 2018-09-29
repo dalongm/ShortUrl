@@ -32,11 +32,29 @@
 <form class="uk-form uk-margin" id="urlForm" action="${basePath}/" method="post">
     <fieldset class="uk-fieldset">
         <legend class="uk-legend">出现错误请重试</legend>
+        <p>${error.message}</p>
         <div class="uk-margin">
-            <input class="uk-button uk-button-primary" type="button" value="创建" onclick="postUrl()"/>
-            <input class="uk-button uk-button-default" type="reset" value="重置" onclick="reset2default()"/>
+            <input class="uk-button uk-button-primary" type="button" value="返回" onclick="goBack()"/>
+            <input class="uk-button uk-button-default" type="button" value="关闭" onclick="closeCurrentPage()"/>
         </div>
     </fieldset>
 </form>
 </body>
+<script type="text/javascript">
+    function goBack() {
+        window.history.back(-1);
+    }
+
+    function closeCurrentPage() {
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Firefox") !== -1 || userAgent.indexOf("Chrome") !== -1) {
+            window.location.href = "about:blank";
+            window.close();
+        } else {
+            window.opener = null;
+            window.open("", "_self");
+            window.close();
+        }
+    }
+</script>
 </html>

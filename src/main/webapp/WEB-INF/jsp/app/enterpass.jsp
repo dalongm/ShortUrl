@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-<form class="uk-form uk-margin" id="urlForm" action="${basePath}/" method="post">
+<form class="uk-form uk-margin" id="urlForm" action="${basePath}/veri" method="post">
     <fieldset class="uk-fieldset">
         <legend class="uk-legend">请输入短链接密码</legend>
         <div class="uk-margin">
@@ -37,7 +37,7 @@
             <div class="uk-form-controls">
                 <span class="uk-input uk-form-width-medium">${basePath}/</span>
                 <input id="sUrl" name="sUrl" class="uk-input uk-form-width-medium" type="text"
-                       placeholder="后缀(可选)" readonly="readonly" value="${url.sUrl}">
+                       placeholder="后缀(可选)" readonly="readonly" value="${sUrl}">
             </div>
         </div>
         <div class="uk-margin">
@@ -55,6 +55,26 @@
     </fieldset>
 </form>
 </body>
+<script type="text/javascript">
+    function checkShort(obj, n) {
+        var strRegex = "^[a-zA-Z0-9]{" + n + ",10}$";
+        var re = new RegExp(strRegex);
+        if ($(obj).val().trim() !== "" && !re.test($(obj).val().trim())) {
+            $(obj).removeClass("uk-form-success");
+            $(obj).addClass("uk-form-danger");
+            return (false);
+        } else {
+            $(obj).removeClass("uk-form-danger");
+            $(obj).addClass("uk-form-success");
+            return (true);
+        }
+    }
 
+    function goto(){
+        if(checkShort("#visitPass",4)){
+            $("#urlForm").submit();
+        }
+    }
+</script>
 
 </html>

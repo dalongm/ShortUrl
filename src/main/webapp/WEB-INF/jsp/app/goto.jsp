@@ -1,11 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
-  User: dalon
-  Date: 2018/9/29
-  Time: 15:21
+  User: dalongm
+  Date: 2018/9/28
+  Time: 18:53
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     request.setAttribute("basePath", basePath);
@@ -29,55 +31,86 @@
     </style>
 </head>
 <body>
-<form class="uk-form uk-margin" id="urlForm" action="${basePath}/" method="post">
+<form class="uk-margin" id="urlForm" action="${basePath}/" method="get">
     <fieldset class="uk-fieldset">
-        <legend class="uk-legend">欢迎使用短链接服务</legend>
+        <legend class="uk-legend">获取原始链接成功</legend>
         <div class="uk-margin">
             <label class="uk-form-label" for="url">原始链接:</label>
             <div class="uk-form-controls">
-                <input id="url" name="url" class="uk-input uk-form-width-large"
-                       uk-tooltip="title: 长度不大于255个字符; pos: top"
-                       type="text" placeholder="原始链接" onchange="checkInputEmpty(this)">
+                <input id="url" name="url" class="uk-input uk-form-width-large" readonly="readonly"
+                       type="text" placeholder="原始链接" value="${url.url}">
             </div>
         </div>
         <div class="uk-margin">
             <label class="uk-form-label" for="sUrl">短链接:</label>
             <div class="uk-form-controls">
-                <span class="uk-input uk-form-width-medium">${basePath}/</span>
-                <input id="sUrl" name="sUrl" class="uk-input uk-form-width-medium" type="text"
-                       placeholder="后缀(可选)" uk-tooltip="title: 不少于5个且不多于10个字母与数字的组合; pos: top"
-                       onchange="checkShort(this,5)">
+                <input id="sUrl" name="sUrl" class="uk-input uk-form-width-large" type="text" value="${basePath}/${url.sUrl}"
+                       placeholder="后缀(可选)" readonly="readonly">
             </div>
         </div>
         <div class="uk-margin">
             <label class="uk-form-label" for="validTime">有效时长(天):</label>
             <div class="uk-form-controls">
-                <input id="validTime" name="validTime" class="uk-input uk-form-width-medium" type="number"
-                       onchange="change2green(this)"
-                       placeholder="可选，默认1年" uk-tooltip="title: 默认1年; pos: top" onchange="checkShort(this)">
+                <input id="validTime" name="validTime" class="uk-input uk-form-width-medium" type="number" readonly="readonly"
+                       placeholder="可选，默认1年" value="${url.validTime}">
             </div>
         </div>
         <div class="uk-margin">
             <label class="uk-form-label" for="validTimes">有效次数:</label>
             <div class="uk-form-controls">
-                <input id="validTimes" name="validTimes" class="uk-input uk-form-width-medium" type="number" min="0"
-                       onchange="change2green(this)"
-                       placeholder="可选，默认10w次" uk-tooltip="title: 默认10w次; pos: top">
+                <input id="validTimes" name="validTimes" class="uk-input uk-form-width-medium" type="number" min="0" readonly="readonly"
+                       placeholder="可选，默认10w次" uk-tooltip="title: 默认10w次; pos: top" value="${url.validTimes}">
             </div>
         </div>
         <div class="uk-margin">
             <label class="uk-form-label" for="visitPass">访问密码:</label>
             <div class="uk-form-controls">
-                <input id="visitPass" name="visitPass" class="uk-input uk-form-width-medium" type="text"
-                       placeholder="可选，默认无" uk-tooltip="title: 默认无，不少于4位的数字与字母组合; pos: top"
-                       onchange="checkShort(this,4)">
+                <input id="visitPass" name="visitPass" class="uk-input uk-form-width-medium" type="text" readonly="readonly"
+                       placeholder="可选，默认无"
+                <c:if test="${url.visitPass==null||empty url.visitPass}">
+                        value="无"
+                </c:if>
+                <c:if test="${url.visitPass!=null}">
+                       value="${url.visitPass}"
+                </c:if>
+                >
             </div>
         </div>
+
         <div class="uk-margin">
-            <input class="uk-button uk-button-primary" type="button" value="创建" onclick="postUrl()"/>
-            <input class="uk-button uk-button-default" type="reset" value="重置" onclick="reset2default()"/>
+            <a class="uk-button uk-button-default" onclick="copysUrl()">复制长链接</a>
+            <a class="uk-button uk-button-primary" onclick="goUrl()">直接访问</a>
         </div>
     </fieldset>
 </form>
 </body>
+<script type="text/javascript">
+    function checkInputEmpty(obj) {
+        if ($(obj).val().trim() === "") {
+            $(obj).removeClass("uk-form-success");
+            $(obj).addClass("uk-form-danger");
+            return false;
+        } else {
+            $(obj).removeClass("uk-form-danger");
+            $(obj).addClass("uk-form-success");
+            return true;
+        }
+    }
+
+    function copysUrl() {
+        var Url = document.getElementById("url");
+        Url.select(); // 选择对象
+        document.execCommand("Copy");
+        alert("原始链接复制成功！");
+    }
+    
+    function goUrl() {
+        var url = "${url.url}";
+        if(url.toLowerCase().startsWith("http://")||url.toLowerCase().startsWith("https://")){
+            window.location.href = url;
+        }else{
+            window.location.href = "http://"+url;
+        }
+    }
+</script>
 </html>

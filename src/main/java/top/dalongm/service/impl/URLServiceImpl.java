@@ -78,6 +78,9 @@ public class URLServiceImpl implements URLService {
     @Override
     public URLDto getById(Long id) {
         URL url = urlDao.selectById(id);
+        if(url==null){
+            return null;
+        }
         URLDto urlDto = new URLDto();
         BeanUtils.copyProperties(url, urlDto);
         return urlDto;
@@ -86,6 +89,9 @@ public class URLServiceImpl implements URLService {
     @Override
     public URLDto getBySUrl(String sUrl) {
         URL url = urlDao.selectBySUrl(sUrl);
+        if(url==null){
+            return null;
+        }
         URLDto urlDto = new URLDto();
         BeanUtils.copyProperties(url, urlDto);
         return urlDto;
@@ -116,7 +122,7 @@ public class URLServiceImpl implements URLService {
 
     private static void setURLDtoDefault(URLDto urlDto){
         if(urlDto.getValidTime()==null){
-            urlDto.setValidTime(365L);
+            urlDto.setValidTime(365.0);
         }
         if(urlDto.getValidTimes()==null){
             urlDto.setValidTimes(100000L);
