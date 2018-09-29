@@ -31,8 +31,8 @@ public class URLDaoTest {
         url = urlDao.selectBySUrl("1");
         System.out.println(url);
 
-        url = urlDao.selectByUrl("http://dalongm.top");
-        System.out.println(url);
+        urls = urlDao.selectByUrl("http://dalongm.top");
+        System.out.println(urls.get(0));
     }
 
     @Test

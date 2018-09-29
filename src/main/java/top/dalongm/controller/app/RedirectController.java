@@ -18,10 +18,13 @@ public class RedirectController {
     @RequestMapping(value="/",method = RequestMethod.POST)
     public String createShortUrl(Model model, URLDto urlDto){
 
-        if(urlDto.getUrl()!=null&&urlService.add(urlDto)){
-            urlDto = urlService.getByUrl(urlDto.getUrl());
-            model.addAttribute("url",urlDto);
-            return "/app/result";
+        if(urlDto.getUrl()!=null){
+            urlDto = urlService.add(urlDto);
+            if(urlDto!=null){
+                model.addAttribute("url",urlDto);
+                return "/app/result";
+            }
+
         }
         return "/app/index";
     }
@@ -30,6 +33,7 @@ public class RedirectController {
     public String goShortUrl(@PathVariable("shorturl") String shortUrl){
         URLDto urlDto = urlService.getBySUrl(shortUrl);
         if(urlDto!=null){
+            urlService.incVisitedById(urlDto.getId());
             return "redirect:"+urlDto.getUrl();
         }
         return "redirect:/";

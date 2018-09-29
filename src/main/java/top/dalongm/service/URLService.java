@@ -11,11 +11,13 @@ public interface URLService {
 
     URLDto getBySUrl(String sUrl);
 
-    URLDto getByUrl(String url);
+    List<URLDto> getByUrl(String url);
 
-    boolean add(URLDto urlDto);
+    URLDto add(URLDto urlDto);
 
     boolean update(URLDto urlDto);
+
+    boolean incVisitedById(Long id);
 
     boolean remove(URLDto urlDto);
 

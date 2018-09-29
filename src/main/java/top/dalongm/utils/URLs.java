@@ -22,7 +22,7 @@ public class URLs {
         Random rnd = new Random();
         int r;
         for (int i = 0; i < length; i++) {
-            r = (int) (rnd.nextDouble() * 20.0);
+            r = (int) (rnd.nextDouble() * 62.0);
             sb.append(getChar(r));
         }
         return sb.toString();

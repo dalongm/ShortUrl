@@ -37,8 +37,9 @@ public class URLServiceTest {
         tempUrl.setUrl("http://www.baidu.com");
         URLDto urlDto = new URLDto();
         BeanUtils.copyProperties(tempUrl, urlDto);
-        if (urlService.add(urlDto)) {
+        if ((urlDto=urlService.add(urlDto))!=null) {
             System.out.println("增加成功！");
+            System.out.println(urlDto);
         } else {
             System.out.println("增加失败！");
         }

@@ -33,19 +33,20 @@ public class URLServiceImpl implements URLService {
     }
 
     @Override
-    public boolean add(URLDto urlDto) {
+    public URLDto add(URLDto urlDto) {
         // 网址不能为空
         if (!URLs.valid(urlDto.getUrl())) {
-            return false;
+            return null;
         }
+        setURLDtoDefault(urlDto);
 
         URL url = new URL();
         BeanUtils.copyProperties(urlDto, url);
         // 已有该短地址
         if (url.getsUrl() != null && urlDao.selectBySUrl(url.getsUrl()) != null) {
-            return false;
+            return null;
         }
-        if (url.getsUrl() == null||url.getsUrl().trim().equals("")) {
+        if (url.getsUrl() == null || url.getsUrl().trim().equals("")) {
             // 获得有效随机地址
             for (; ; ) {
                 String sUrl = URLs.getRandom(5);
@@ -57,7 +58,9 @@ public class URLServiceImpl implements URLService {
         }
         url.setCreateTime(new Date());
         url.setVisited(0L);
-        return urlDao.insert(url) == 1;
+        urlDao.insert(url);
+        BeanUtils.copyProperties(url,urlDto);
+        return urlDto;
     }
 
     @Override
@@ -89,12 +92,35 @@ public class URLServiceImpl implements URLService {
     }
 
     @Override
-    public URLDto getByUrl(String u) {
-        URL url = urlDao.selectByUrl(u);
-        URLDto urlDto = new URLDto();
-        if(url!=null){
-            BeanUtils.copyProperties(url, urlDto);
+    public List<URLDto> getByUrl(String u) {
+        List<URL> urls = urlDao.selectByUrl(u);
+        URLDto urlDto;
+        List<URLDto> urlDtos = new ArrayList<>();
+        if (urls != null) {
+            for(URL url:urls){
+                urlDto = new URLDto();
+                BeanUtils.copyProperties(url, urlDto);
+                urlDtos.add(urlDto);
+            }
         }
-        return urlDto;
+        return urlDtos;
     }
+
+    @Override
+    public boolean incVisitedById(Long id) {
+        URL url = new URL();
+        url.setId(id);
+        url.setLastVisitTime(new Date());
+        return urlDao.updateVisited(url) == 1;
+    }
+
+    private static void setURLDtoDefault(URLDto urlDto){
+        if(urlDto.getValidTime()==null){
+            urlDto.setValidTime(365L);
+        }
+        if(urlDto.getValidTimes()==null){
+            urlDto.setValidTimes(100000L);
+        }
+    }
+
 }

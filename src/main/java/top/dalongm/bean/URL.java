@@ -16,6 +16,19 @@ public class URL {
     private String sUrl;
     private Long visited;
     private Date createTime;
+    private Date lastVisitTime;
+    private Long validTime;
+    private Long validTimes;
+    private String visitPass;
+
+
+    public Date getLastVisitTime() {
+        return lastVisitTime;
+    }
+
+    public void setLastVisitTime(Date lastVisitTime) {
+        this.lastVisitTime = lastVisitTime;
+    }
 
     public Date getCreateTime() {
         return createTime;
@@ -57,6 +70,30 @@ public class URL {
         this.visited = visited;
     }
 
+    public Long getValidTime() {
+        return validTime;
+    }
+
+    public void setValidTime(Long validTime) {
+        this.validTime = validTime;
+    }
+
+    public Long getValidTimes() {
+        return validTimes;
+    }
+
+    public void setValidTimes(Long validTimes) {
+        this.validTimes = validTimes;
+    }
+
+    public String getVisitPass() {
+        return visitPass;
+    }
+
+    public void setVisitPass(String visitPass) {
+        this.visitPass = visitPass;
+    }
+
     @Override
     public String toString() {
         return "URL{" +
@@ -65,6 +102,9 @@ public class URL {
                 ", sUrl='" + sUrl + '\'' +
                 ", visited=" + visited +
                 ", createTime=" + createTime +
+                ", validTime=" + validTime +
+                ", validTimes=" + validTimes +
+                ", visitPass='" + visitPass + '\'' +
                 '}';
     }
 }

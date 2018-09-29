@@ -5,4 +5,5 @@ import top.dalongm.bean.URL;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class URLDto extends URL {
+
 }

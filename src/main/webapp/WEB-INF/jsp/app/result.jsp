@@ -34,14 +34,51 @@
 <form class="uk-margin" id="urlForm" action="${basePath}/" method="get">
     <fieldset class="uk-fieldset">
         <legend class="uk-legend">短链接生成成功</legend>
+
+
         <div class="uk-margin">
-            <input id="url" readonly="readonly" name="url" class="uk-input uk-form-width-large" type="text"
-                   placeholder="原始链接" value="${url.url}">
+            <label class="uk-form-label" for="url">原始链接:</label>
+            <div class="uk-form-controls">
+                <input id="url" name="url" class="uk-input uk-form-width-large" readonly="readonly"
+                       type="text" placeholder="原始链接" value="${url.url}">
+            </div>
         </div>
         <div class="uk-margin">
-            <input id="sUrl" readonly="readonly" name="sUrl" class="uk-input uk-form-width-large" type="text"
-                   placeholder="短链接" value="${basePath}/${url.sUrl}">
+            <label class="uk-form-label" for="sUrl">短链接:</label>
+            <div class="uk-form-controls">
+                <input id="sUrl" name="sUrl" class="uk-input uk-form-width-large" type="text" value="${basePath}/${url.sUrl}"
+                       placeholder="后缀(可选)" readonly="readonly">
+            </div>
         </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="validTime">有效时长(天):</label>
+            <div class="uk-form-controls">
+                <input id="validTime" name="validTime" class="uk-input uk-form-width-medium" type="number" readonly="readonly"
+                       placeholder="可选，默认1年" value="${url.validTime}">
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="validTimes">有效次数:</label>
+            <div class="uk-form-controls">
+                <input id="validTimes" name="validTimes" class="uk-input uk-form-width-medium" type="number" min="0" readonly="readonly"
+                       placeholder="可选，默认10w次" uk-tooltip="title: 默认10w次; pos: top" value="${url.validTimes}">
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="visitPass">访问密码:</label>
+            <div class="uk-form-controls">
+                <input id="visitPass" name="visitPass" class="uk-input uk-form-width-medium" type="text" readonly="readonly"
+                       placeholder="可选，默认无"
+                <c:if test="${url.visitPass==null||empty url.visitPass}">
+                        value="无"
+                </c:if>
+                <c:if test="${url.visitPass!=null}">
+                       value="${url.visitPass}"
+                </c:if>
+                >
+            </div>
+        </div>
+
         <div class="uk-margin">
             <a class="uk-button uk-button-default" href="${basePath}/">返回</a>
             <a class="uk-button uk-button-primary" onclick="copysUrl()">复制短链接</a>
@@ -66,7 +103,7 @@
         var Url = document.getElementById("sUrl");
         Url.select(); // 选择对象
         document.execCommand("Copy");
-        alert("复制成功！");
+        alert("短链接复制成功！若有密码请妥善保管");
     }
 
 </script>
