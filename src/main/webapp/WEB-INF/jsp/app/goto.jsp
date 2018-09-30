@@ -1,4 +1,4 @@
-<%--
+<%@ page import="top.dalongm.dto.URLDto" %><%--
   Created by IntelliJ IDEA.
   User: dalongm
   Date: 2018/9/28
@@ -26,6 +26,20 @@
         }
     </style>
 </head>
+<%
+    URLDto urlDto = (URLDto)request.getAttribute("url");
+    double dday = urlDto.getValidTime();
+    int day = (int)Math.floor(dday);
+    double dhour = (dday-day)*24.0;
+    int hour = (int)Math.floor(dhour);
+    double dmin = (dhour-hour)*60.0;
+    int min = (int)Math.floor(dmin);
+    int sec = (int)Math.floor((dmin-min)*60.0);
+    request.setAttribute("day", day);
+    request.setAttribute("hour", hour);
+    request.setAttribute("min", min);
+    request.setAttribute("sec", sec);
+%>
 <body>
 <form class="uk-margin" id="urlForm" action="${basePath}/" method="get">
     <fieldset class="uk-fieldset">
@@ -45,10 +59,10 @@
             </div>
         </div>
         <div class="uk-margin">
-            <label class="uk-form-label" for="validTime">有效时长(天):</label>
+            <label class="uk-form-label" for="validTime">有效时长:</label>
             <div class="uk-form-controls">
-                <input id="validTime" name="validTime" class="uk-input uk-form-width-medium" type="number" readonly="readonly"
-                       placeholder="可选，默认1年" value="${url.validTime}">
+                <input id="validTime" name="validTime" class="uk-input uk-form-width-medium" type="text" readonly="readonly"
+                       placeholder="可选，默认1年" value="${day}天${hour}时${min}分${sec}秒">
             </div>
         </div>
         <div class="uk-margin">

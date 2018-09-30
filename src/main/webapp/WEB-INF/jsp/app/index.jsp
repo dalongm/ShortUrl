@@ -45,10 +45,18 @@
             </div>
         </div>
         <div class="uk-margin">
-            <label class="uk-form-label" for="validTime">有效时长(天):</label>
+            <label class="uk-form-label" for="validTime">有效时长:</label>
             <div class="uk-form-controls">
-                <input id="validTime" name="validTime" class="uk-input uk-form-width-medium" type="number" onchange="change2green(this)"
-                       placeholder="可选，默认1年" uk-tooltip="title: 默认1年; pos: top" onchange="checkShort(this)">
+                <input id="validTime" name="validTime" hidden>
+                <input id="validDay" name="validDay" class="uk-input uk-form-width-small" type="number" onchange="change2green(this)"
+                       placeholder="365" uk-tooltip="title: 天，可选，默认1年; pos: top" min="0" value="365">
+                <span>天</span>
+                <input id="validHour" name="validHour" class="uk-input uk-form-width-small" type="number" onchange="change2green(this)"
+                       placeholder="0" uk-tooltip="title: 分，可选，默认0; pos: top" min="0" value="0" max="59">
+                <span>时</span>
+                <input id="validMin" name="validMin" class="uk-input uk-form-width-small" type="number" onchange="change2green(this)"
+                       placeholder="0" uk-tooltip="title: 分，可选，默认0; pos: top" min="0" value="0" max="59">
+                <span>分</span>
             </div>
         </div>
         <div class="uk-margin">
@@ -119,6 +127,8 @@
 
     function postUrl() {
         if (checkInputEmpty("#url")&&checkShort("#sUrl",5)) {
+            var day = Number($("#validDay").val())+Number($("#validHour").val())/24+Number($("#validMin").val())/24/60;
+            $("#validTime").attr("value",day);
             $("#urlForm").submit();
             return;
         }

@@ -35,6 +35,7 @@ public class URLServiceTest {
     public void add() {
         URL tempUrl = new URL();
         tempUrl.setUrl("http://www.baidu.com");
+        tempUrl.setVisitPass("dalongm");
         URLDto urlDto = new URLDto();
         BeanUtils.copyProperties(tempUrl, urlDto);
         if ((urlDto=urlService.add(urlDto))!=null) {
