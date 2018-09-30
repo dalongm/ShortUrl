@@ -1,5 +1,6 @@
 package top.dalongm.utils;
 
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
 
@@ -24,6 +25,18 @@ public class URLs {
         for (int i = 0; i < length; i++) {
             r = (int) (rnd.nextDouble() * 62.0);
             sb.append(getChar(r));
+        }
+        return sb.toString();
+    }
+
+    public static String getRandom(List<Character> charlist, int length) {
+        StringBuilder sb = new StringBuilder();
+        Random rnd = new Random();
+        int r;
+
+        for (int i = 0; i < length; i++) {
+            r = (int) (rnd.nextDouble() * (double) charlist.size());
+            sb.append(charlist.get(r));
         }
         return sb.toString();
     }

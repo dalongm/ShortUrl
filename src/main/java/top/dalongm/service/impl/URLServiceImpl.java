@@ -48,8 +48,14 @@ public class URLServiceImpl implements URLService {
         }
         if (url.getsUrl() == null || url.getsUrl().trim().equals("")) {
             // 获得有效随机地址
+            List<Character> charList = getCharList(urlDto);
+            String sUrl = null;
             for (; ; ) {
-                String sUrl = URLs.getRandom(5);
+                if (charList.size() == 0) {
+                    sUrl = URLs.getRandom(urlDto.getsUrlLen().intValue());
+                } else {
+                    sUrl = URLs.getRandom(charList, urlDto.getsUrlLen().intValue());
+                }
                 if (urlDao.selectBySUrl(sUrl) == null) {
                     url.setsUrl(sUrl);
                     break;
@@ -59,8 +65,28 @@ public class URLServiceImpl implements URLService {
         url.setCreateTime(new Date());
         url.setVisited(0L);
         urlDao.insert(url);
-        BeanUtils.copyProperties(url,urlDto);
+        BeanUtils.copyProperties(url, urlDto);
         return urlDto;
+    }
+
+    private static List<Character> getCharList(URLDto urlDto) {
+        List<Character> list = new ArrayList<>();
+        if (urlDto.getLowAlphabet()) {
+            for (Character i = 'a'; i <= 'z'; i++) {
+                list.add(i);
+            }
+        }
+        if (urlDto.getUpAlphabet()) {
+            for (Character i = 'A'; i <= 'Z'; i++) {
+                list.add(i);
+            }
+        }
+        if (urlDto.getNumber()) {
+            for (Character i = '0'; i <= '9'; i++) {
+                list.add(i);
+            }
+        }
+        return list;
     }
 
     @Override
@@ -78,7 +104,7 @@ public class URLServiceImpl implements URLService {
     @Override
     public URLDto getById(Long id) {
         URL url = urlDao.selectById(id);
-        if(url==null){
+        if (url == null) {
             return null;
         }
         URLDto urlDto = new URLDto();
@@ -89,7 +115,7 @@ public class URLServiceImpl implements URLService {
     @Override
     public URLDto getBySUrl(String sUrl) {
         URL url = urlDao.selectBySUrl(sUrl);
-        if(url==null){
+        if (url == null) {
             return null;
         }
         URLDto urlDto = new URLDto();
@@ -103,7 +129,7 @@ public class URLServiceImpl implements URLService {
         URLDto urlDto;
         List<URLDto> urlDtos = new ArrayList<>();
         if (urls != null) {
-            for(URL url:urls){
+            for (URL url : urls) {
                 urlDto = new URLDto();
                 BeanUtils.copyProperties(url, urlDto);
                 urlDtos.add(urlDto);
@@ -120,12 +146,24 @@ public class URLServiceImpl implements URLService {
         return urlDao.updateVisited(url) == 1;
     }
 
-    private static void setURLDtoDefault(URLDto urlDto){
-        if(urlDto.getValidTime()==null){
+    private static void setURLDtoDefault(URLDto urlDto) {
+        if (urlDto.getValidTime() == null) {
             urlDto.setValidTime(365.0);
         }
-        if(urlDto.getValidTimes()==null){
+        if (urlDto.getValidTimes() == null) {
             urlDto.setValidTimes(100000L);
+        }
+        if (urlDto.getNumber() == null) {
+            urlDto.setNumber(false);
+        }
+        if (urlDto.getUpAlphabet() == null) {
+            urlDto.setUpAlphabet(false);
+        }
+        if (urlDto.getLowAlphabet() == null) {
+            urlDto.setLowAlphabet(false);
+        }
+        if (urlDto.getsUrlLen() == null) {
+            urlDto.setsUrlLen(5L);
         }
     }
 

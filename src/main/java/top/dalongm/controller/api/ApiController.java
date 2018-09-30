@@ -68,8 +68,9 @@ public class ApiController {
                 apiurlDto.setError(ErrorType.TIME_INVALID);
                 return apiurlDto;
             }
-            if (urlDto.getVisitPass() == null && urlDtoTemp.getVisitPass() == null ||
-                    urlDto.getVisitPass().equals(urlDtoTemp.getVisitPass())) {
+            if (urlDtoTemp.getVisitPass() == null || urlDtoTemp.getVisitPass().equals("") || urlDto.getVisitPass() == null && urlDtoTemp.getVisitPass() == null ||
+                    urlDto.getVisitPass() != null && urlDtoTemp.getVisitPass() !=null
+                    &&urlDto.getVisitPass().equals(urlDtoTemp.getVisitPass())) {
 
                 BeanUtils.copyProperties(urlDtoTemp, apiurlDto);
                 urlService.incVisitedById(apiurlDto.getId());

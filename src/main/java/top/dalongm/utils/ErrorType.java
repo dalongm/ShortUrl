@@ -28,4 +28,8 @@ public enum ErrorType {
         return message;
     }
 
+    @Override
+    public String toString() {
+        return message;
+    }
 }
