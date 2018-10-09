@@ -6,6 +6,8 @@
     * 访问密码
     * 有效时间
     * 访问次数
+    * 字符集
+    * 长度
 * api
 
 ## 开发环境
@@ -55,7 +57,7 @@ http://s.dalongm.top
           "validTimes": 100000,
           "visitPass": 123456,
           "error": "SUCCESS",
-          "basePath": "http://m.dalongm.top/"
+          "basePath": "http://s.dalongm.top/"
       }
     ```
     * 返回数据中
